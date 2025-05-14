@@ -26,6 +26,29 @@ h6 {
   column-gap: 2rem;
 }
 
+/* Article page styles */
+.article-content p:first-of-type::first-letter {
+  font-size: 3.5rem;
+  font-weight: 700;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.1em;
+  margin-top: 0.1em;
+}
+
+/* Pull quote style */
+.pull-quote {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  line-height: 1.4;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  text-align: center;
+}
+
 @media print {
   body {
     width: 100%;

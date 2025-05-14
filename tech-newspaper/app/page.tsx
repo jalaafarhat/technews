@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 type Article = {
   _id: string;
@@ -22,7 +23,8 @@ const getArticles = async (): Promise<Article[]> => {
 
 export default async function HomePage() {
   const articles = await getArticles();
-
+  const issueNumber = articles.length;
+  const volumeNumber = new Date().getFullYear() - 2025 + 1;
   // Get current date for the newspaper header
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
@@ -43,12 +45,15 @@ export default async function HomePage() {
         <div className="border-b-4 border-black pb-4 mb-6">
           <div className="text-center">
             <h1 className="font-serif text-6xl sm:text-7xl md:text-8xl font-bold tracking-tighter">
-              THE TECH CHRONICLE
+              TECH INSIGHTS HUB
             </h1>
             <div className="flex justify-between items-center mt-2 text-sm border-t border-b border-black py-2">
-              <p>Vol. 1 Issue 42</p>
+              <p>
+                Vol. {volumeNumber} Issue {issueNumber}
+              </p>
+
               <p className="font-medium">{today}</p>
-              <p>techchronicle.com</p>
+              <p>techinsightshub.com</p>
             </div>
           </div>
         </div>
@@ -74,23 +79,28 @@ export default async function HomePage() {
                 <div className="md:flex gap-6">
                   <div className="md:w-1/2 mb-4 md:mb-0">
                     <div className="relative h-64 md:h-96 w-full border border-gray-300 bg-white p-1">
-                      <img
+                      <Image
                         src={
                           featuredArticle.imageUrl || "/placeholder-article.jpg"
                         }
                         alt={featuredArticle.title}
+                        layout="fill" // You can set `layout="intrinsic"` or `layout="responsive"` based on your needs
                         className="w-full h-full object-contain"
-                        loading="lazy"
+                        priority
                       />
                       <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 p-2 text-xs border-t border-gray-300">
-                        Photo: Tech Chronicle Archives
+                        Photo: TECH INSIGHTS HUB
                       </div>
                     </div>
                   </div>
                   <div className="md:w-1/2">
                     <div className="font-serif text-lg leading-relaxed space-y-2">
                       <p className="first-letter:text-4xl first-letter:font-bold first-letter:mr-1 first-letter:float-left">
-                        {featuredArticle.content}
+                        {featuredArticle.content
+                          .split(" ")
+                          .slice(0, 30)
+                          .join(" ")}
+                        ...
                       </p>
                     </div>
                     <div className="mt-4 text-sm">
@@ -170,8 +180,7 @@ export default async function HomePage() {
         {/* Newspaper Footer */}
         <div className="mt-12 pt-4 border-t-2 border-black text-center">
           <p className="text-sm font-serif">
-            THE TECH CHRONICLE © {new Date().getFullYear()} | All Rights
-            Reserved
+            TECH INSIGHTS HUB © {new Date().getFullYear()} | All Rights Reserved
           </p>
         </div>
       </div>
